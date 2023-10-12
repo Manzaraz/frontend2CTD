@@ -1,75 +1,40 @@
 /* -------------------------------------------------------------------------- */
-/*                                  FUNCION 1                                 */
+/*                                  FUNCION 2                                 */
 /* -------------------------------------------------------------------------- */
-// console.log("Hola Camada 2");
-// function iniciarJuego() {
+// 👇 Esta funcion nos devuelve 1, 2 o 3 según la elección del usuario.
+// Hasta que el usuario ingrese un dato válido le seguimos pidiendo que elija.
 
-//     // Saludamos al usuario
-//     alert("Bienvenido al el popular juego de piedra, papel o tijera de Frontend 2")
+function pedirJugada() {
 
-//     // Guardamos en una variable el nombre del jugador
-//     let nombre = prompt("Ingrese su nombre:")
-//     // let confirmacion = confirm("¿Sos hincha de Boca?")
-//     // console.log(confirmacion);
-
-//     // alert("Gracias por jugar " + nombre + ". ¡Mucha suerte!")
-//     alert(`Gracias por jugar nombre ${nombre}. ¡Mucha suerte!`)
-
-//     // mostramos los datos por consola
-//     console.log("------------------------------");
-//     console.log("El jugador es: ");
-//     console.log(nombre);
-//     console.log("------------------------------");
-
-//     return nombre
-
-// }
-
-/* Resolución Equipo de Nico  */
-function iniciarJuego() {
-    // Saludamos al usuario
-    alert(
-        "Bienvenido al el popular juego de piedra, papel o tijera de Frontend 2"
-    );
-
-    // Guardamos en una variable el nombre del jugador
-
-    let nombre;
-    let soloLetras
-    do {
-        nombre = prompt("Ingrese su nombre:");
-        nombre = nombre.trim().toUpperCase();
-        soloLetras = /^[a-zA-Z]+$/;
-
-        if (nombre.length < 3 || !soloLetras.test(nombre)) {
-            alert("Nombre incorrecto");
-        }
-    } while (nombre.length < 3 || nombre.length == 0 || !soloLetras.test(nombre));
-
-
-    // let confirmacion = confirm("¿Sos hincha de Boca?")
-    // console.log(confirmacion);
-    // alert("Gracias por jugar " + nombre + ". ¡Mucha suerte!")
-
-    alert(`Gracias por jugar nombre ${nombre}. ¡Mucha suerte!`);
-
-    // mostramos los datos por consola
-    console.log("------------------------------");
-    console.log("El jugador es: ");
-    console.log(nombre);
-    console.log("------------------------------");
-
-    return nombre;
 }
 
-// creamos una variable a nivel global para guardar el nombre del jugador que nos devuelve la función
-const nombreJugador = iniciarJuego()
+/* -------------------------------------------------------------------------- */
+/*                                  FUNCION 3                                 */
+/* -------------------------------------------------------------------------- */
+function jugadaRandom() {
 
+}
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  FUNCION 4                                 */
+/* -------------------------------------------------------------------------- */
+// 👇 Esta funcion nos devuelve el resultado de la partida según las elecciones.
+// Comparamos la eleccion de cada uno para saber quien pierde y quien gana.
+
+function compararJugadas() {
+
+}
+
+// const resultadoDePartida = compararJugadas()
+// console.log(resultadoDePartida);
 /* -------------------------------------------------------------------------- */
 /*                          CONSIGNA MESA DE TRABAJO                          */
 /* -------------------------------------------------------------------------- */
-// 1- Modificar la funcion de iniciarJuego(), validar si ingresa un dato válido como nombre.
-// 2- Si no ingresa un texto, o tiene menos de 3 caracteres debemos volverle a pedir que lo ingrese.
-// 3- Finalmente el nombre devuelto debe estar todo en mayúsculas.
+// 1- Crear una función que reciba como parametro un texto (la frase de resultado de la partida).
+// 2- La función debe mostrar por consola el resultado de la partida.
+// 3- A su vez debe mostrar al usuario una alerta con el resutado de la partida.
+// 4- Finalmente, si el resultado fue una derrota debe mostrarle al usuario un mensaje de aliento para desearle suerte en la próxima oportunidad.
 
 
