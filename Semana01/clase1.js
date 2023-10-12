@@ -1,40 +1,67 @@
 /* -------------------------------------------------------------------------- */
-/*                                  FUNCION 2                                 */
+/*                                  FUNCION 1                                 */
 /* -------------------------------------------------------------------------- */
-// 👇 Esta funcion nos devuelve 1, 2 o 3 según la elección del usuario.
-// Hasta que el usuario ingrese un dato válido le seguimos pidiendo que elija.
+// function iniciarJuego() {
+//     // Saludamos al vistante
+//     alert("Bienvenido al juego de Piedra, Pael o Tijera de Frontend 2.!");
+//     // Guardar el nombre en una variable
+//     const nombre = prompt("Su nombre");
 
-function pedirJugada() {
+//     // alert("Hola " + nombre + ".")
+//     alert(`¡Hola estimado: ${nombre}, Mucha suerte!`)
 
+//     // Mostramos los datos en consola
+//     console.log("---------------------------");
+//     console.log("El nombre del jugador es: ");
+//     console.log(nombre);
+//     console.log("---------------------------");
+
+//     return nombre
+// }
+
+// ***************************
+// Equipo 2
+// ***************************
+
+
+function iniciarJuego() {
+    let ok = false;
+    let soloLetras
+    // suludamos al usuario
+    alert("Bienvenido al piedra papel o tijera de Frontend II.");
+
+    do {
+        let nombre = prompt("Ingese su nombre por favor:").toUpperCase().trim()
+        soloLetras = /^[a-zA-Z]+$/;
+        // guardamos en una variable en nombre ingresado
+        // if (!isNaN(nombre) || nombre.length <= 3) {
+        if (nombre.length < 3 || !soloLetras.test(nombre)) {
+
+            alert("Tu nombre debe tener mas de 3 caracteres y no se permiten numeros");
+            nombre = prompt("Ingese su nombre por favor:").toUpperCase()
+            ok = true
+        } else {
+            ok = false
+            alert("Gracias por jugar " + nombre + ". ¡Mucha suerte!");
+            // mostramos los datos por consola
+            console.log("----------------------------");
+            console.log("El jugador es:")
+            console.log(nombre);
+            console.log("----------------------------");
+            return nombre;
+        }
+    } while (ok == true)
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                  FUNCION 3                                 */
-/* -------------------------------------------------------------------------- */
-function jugadaRandom() {
 
-}
+// creamos una variable a nivel global para guardar el nombre del jugador que nos devuelve la función
+// let nombreJugador = iniciarJuego();
+// console.log(nombreJugador);
 
-
-
-/* -------------------------------------------------------------------------- */
-/*                                  FUNCION 4                                 */
-/* -------------------------------------------------------------------------- */
-// 👇 Esta funcion nos devuelve el resultado de la partida según las elecciones.
-// Comparamos la eleccion de cada uno para saber quien pierde y quien gana.
-
-function compararJugadas() {
-
-}
-
-// const resultadoDePartida = compararJugadas()
-// console.log(resultadoDePartida);
 /* -------------------------------------------------------------------------- */
 /*                          CONSIGNA MESA DE TRABAJO                          */
 /* -------------------------------------------------------------------------- */
-// 1- Crear una función que reciba como parametro un texto (la frase de resultado de la partida).
-// 2- La función debe mostrar por consola el resultado de la partida.
-// 3- A su vez debe mostrar al usuario una alerta con el resutado de la partida.
-// 4- Finalmente, si el resultado fue una derrota debe mostrarle al usuario un mensaje de aliento para desearle suerte en la próxima oportunidad.
-
+// 1- Modificar la funcion de iniciarJuego(), validar si ingresa un dato válido como nombre.
+// 2- Si no ingresa un texto, o tiene menos de 3 caracteres debemos volverle a pedir que lo ingrese.
+// 3- Finalmente el nombre devuelto debe estar todo en mayúsculas.
 
