@@ -2,18 +2,56 @@
 /*                                  FUNCION 1                                 */
 /* -------------------------------------------------------------------------- */
 // console.log("Hola Camada 2");
-function iniciarJuego() {
+// function iniciarJuego() {
 
+//     // Saludamos al usuario
+//     alert("Bienvenido al el popular juego de piedra, papel o tijera de Frontend 2")
+
+//     // Guardamos en una variable el nombre del jugador
+//     let nombre = prompt("Ingrese su nombre:")
+//     // let confirmacion = confirm("¿Sos hincha de Boca?")
+//     // console.log(confirmacion);
+
+//     // alert("Gracias por jugar " + nombre + ". ¡Mucha suerte!")
+//     alert(`Gracias por jugar nombre ${nombre}. ¡Mucha suerte!`)
+
+//     // mostramos los datos por consola
+//     console.log("------------------------------");
+//     console.log("El jugador es: ");
+//     console.log(nombre);
+//     console.log("------------------------------");
+
+//     return nombre
+
+// }
+
+/* Resolución Equipo de Nico  */
+function iniciarJuego() {
     // Saludamos al usuario
-    alert("Bienvenido al el popular juego de piedra, papel o tijera de Frontend 2")
+    alert(
+        "Bienvenido al el popular juego de piedra, papel o tijera de Frontend 2"
+    );
 
     // Guardamos en una variable el nombre del jugador
-    let nombre = prompt("Ingrese su nombre:")
+
+    let nombre;
+    let soloLetras
+    do {
+        nombre = prompt("Ingrese su nombre:");
+        nombre = nombre.trim().toUpperCase();
+        soloLetras = /^[a-zA-Z]+$/;
+
+        if (nombre.length < 3 || !soloLetras.test(nombre)) {
+            alert("Nombre incorrecto");
+        }
+    } while (nombre.length < 3 || nombre.length == 0 || !soloLetras.test(nombre));
+
+
     // let confirmacion = confirm("¿Sos hincha de Boca?")
     // console.log(confirmacion);
-
     // alert("Gracias por jugar " + nombre + ". ¡Mucha suerte!")
-    alert(`Gracias por jugar nombre ${nombre}. ¡Mucha suerte!`)
+
+    alert(`Gracias por jugar nombre ${nombre}. ¡Mucha suerte!`);
 
     // mostramos los datos por consola
     console.log("------------------------------");
@@ -21,8 +59,7 @@ function iniciarJuego() {
     console.log(nombre);
     console.log("------------------------------");
 
-    return nombre
-
+    return nombre;
 }
 
 // creamos una variable a nivel global para guardar el nombre del jugador que nos devuelve la función
