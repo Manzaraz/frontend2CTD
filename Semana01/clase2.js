@@ -47,7 +47,6 @@ function jugadaRandom() {
 
     // finalmente devolvemos el valor de la eleccion
     return numero
-
 }
 
 // let jugadaPC = jugadaRandom()
