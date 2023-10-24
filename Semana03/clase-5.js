@@ -44,16 +44,7 @@ const albumesFamosos = [{
 /* -------------------------------------------------------------------------- */
 //do while, prompt, innerText
 function obtenerUsuario() {
-    const nombreUsuario = document.querySelector('#nombreUsuario');
-    let usuario = "";
-    // pedimos el nombre de usuario hasta que sea válido
-    do {
-        usuario = prompt('Ingrese su nombre de usuario:');
 
-    } while (usuario === null || usuario === "" || usuario.length < 3);
-
-    // insertamos el nombre en el HTML
-    nombreUsuario.innerText = usuario;
 }
 // obtenerUsuario();
 
@@ -62,22 +53,6 @@ function obtenerUsuario() {
 /* -------------------------------------------------------------------------- */
 //forEach, template strings, innerHTML
 function renderizarAlbumes(listado) {
-    const covers = document.querySelector('.covers');
-    // nos aseguramos de vaciar el contenedor antes de insertar nuevos elementos
-    covers.innerHTML = '';
-
-    // recorremos el listado e insertamos en el HTML a traves de las plantillas literales
-    listado.forEach((album) => {
-        covers.innerHTML += `
-    <li data-id="${album.id}">
-        <img src="${album.imagen}" alt="${album.nombre}">
-        <p>${album.nombre}</p>
-        <i id="${album.id}" class="fa fa-heart ${album.like ? 'favorito' : ''}"></i>
-    </li>
-    `
-    })
-    // ☝ importante repasar el operador ternario, en este caso si el album tiene su
-    // propiedad like en true, se le agrega la clase "favorito" al elemento
 
 
 };
