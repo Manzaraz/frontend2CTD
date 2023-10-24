@@ -44,6 +44,31 @@ const albumesFamosos = [{
 /* -------------------------------------------------------------------------- */
 //do while, prompt, innerText
 function obtenerUsuario() {
+    const nombreUsuario = document.querySelector("#nombreUsuario")
+    console.log(nombreUsuario);
+
+    let usuario = ""
+    // Pedir el nombre del usuario hasta que saa válido
+    do {
+        usuario = prompt("Ingrese su nombre de usuario: ").toLowerCase().trim()
+        // usuario = prompt("Ingrese su nombre de usuario: ")
+    } while (usuario === null || usuario == "" || usuario.length < 3);
+
+    // console.log(usuario.charAt(0).toUpperCase() + usuario.slice(1));
+    // usuario = usuario.charAt(0).toUpperCase() + usuario.slice(1)
+    let nombres  = usuario.split(" ")
+    console.log(nombres.map( (nombre) => nombre.charAt(0).toUpperCase() + nombre.slice(1)));
+
+    usuario = nombres.map( (nombre) => nombre.charAt(0).toUpperCase() + nombre.slice(1)).join(" ")
+
+    // Insertando el dato en el HTML
+    nombreUsuario.textContent = usuario
+    // nombreUsuario.textContent = usuario.toLowerCase()
+    // nombreUsuario.innerText = `<div>${usuario}</div>`
+    // nombreUsuario.textContent = `<div>${usuario}</div>`
+    // nombreUsuario.innerHTML = `<div>${usuario}</div>`
+
+
 
 }
 // obtenerUsuario();
@@ -53,6 +78,40 @@ function obtenerUsuario() {
 /* -------------------------------------------------------------------------- */
 //forEach, template strings, innerHTML
 function renderizarAlbumes(listado) {
+    // capturamos el selector donde inserto los nuevos nodos (o etiquetas HTML)
+    const covers = document.querySelector(".covers")
+    // console.log(covers);
+    
+    covers.innerHTML = ""
+    console.log(covers);
+
+    listado.forEach(album => {
+        //  Primero creamos los selectores que inyectaremos en el DOM
+        const li = document.createElement("li")
+        const img = document.createElement("img")
+        const p = document.createElement("p")
+        const i = document.createElement("i")
+
+        // Agregamos atributos de cada nodo o etiqueta creada
+        li.setAttribute("data-id", album.id)
+
+        img.setAttribute("src", album.imagen)
+        img.setAttribute("alt", album.nombre)
+
+        p.textContent = album.nombre
+
+        i.setAttribute("id", album.id)
+        i.setAttribute("class", "fa fa-heart favorito")
+
+        // cargamos los nuevos nodos al li, y des al cover
+        li.appendChild(img)
+        li.appendChild(p)
+        li.appendChild(i)
+
+        covers.appendChild(li)
+
+
+    });
 
 
 };
