@@ -2,7 +2,7 @@
     --gris: #535353;
     --gris-2: #222222;
     --gris-2-trasluz: #22222285;
-    --gris-oscuro: #1C1C1C;
+    --gris-oscuro: hsl(0, 0%, 11%);
     --verde: #1ED55F;
     --letras: #C5C5C5;
 }

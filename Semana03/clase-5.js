@@ -9,7 +9,7 @@ const albumesFamosos = [{
         id: "y456",
         nombre: "Thriller",
         imagen: "https://img.discogs.com/LfnH5tbhcZ4xRMNLAodIyvea9xA=/fit-in/600x600/filters:strip_icc():format(webp):mode_rgb():quality(90)/discogs-images/R-294033-1151290881.jpeg.jpg",
-        like: true
+        like: false
     },
     {
         id: "z789",
@@ -45,7 +45,7 @@ const albumesFamosos = [{
 //do while, prompt, innerText
 function obtenerUsuario() {
     const nombreUsuario = document.querySelector("#nombreUsuario")
-    console.log(nombreUsuario);
+    // console.log(nombreUsuario);
 
     let usuario = ""
     // Pedir el nombre del usuario hasta que saa válido
@@ -69,7 +69,6 @@ function obtenerUsuario() {
     // nombreUsuario.innerHTML = `<div>${usuario}</div>`
 
 
-
 }
 // obtenerUsuario();
 
@@ -85,6 +84,7 @@ function renderizarAlbumes(listado) {
     covers.innerHTML = ""
     console.log(covers);
 
+    /* //Técnica de nodos
     listado.forEach(album => {
         //  Primero creamos los selectores que inyectaremos en el DOM
         const li = document.createElement("li")
@@ -101,7 +101,7 @@ function renderizarAlbumes(listado) {
         p.textContent = album.nombre
 
         i.setAttribute("id", album.id)
-        i.setAttribute("class", "fa fa-heart favorito")
+        i.setAttribute("class", `fa fa-heart ${album.like ? "favorito" : ""}`)
 
         // cargamos los nuevos nodos al li, y des al cover
         li.appendChild(img)
@@ -109,9 +109,28 @@ function renderizarAlbumes(listado) {
         li.appendChild(i)
 
         covers.appendChild(li)
-
-
     });
+    */
+
+    // Insercion atraves de template literals
+   listado.forEach(album => {
+    covers.innerHTML += `
+        <li data-id="${album.id}">
+            <img src="${album.imagen}" alt="${album.nombre}">
+            <p >${album.nombre}</p>
+            <i id="${album.id}" class="fa fa-heart ${album.like ? "favorito" : ""} "  ></i>
+        </li>
+    `
+   });
+
+//    if (album.like == true) {
+//         console.log("Favorito");
+//     } else {
+//         console.log("No me gusta");    
+//    }
+
+// //    operador ternario
+//    (album.like == true) ? console.log("Fav") : console.log("No fav");;
 
 
 };
@@ -131,8 +150,38 @@ renderizarAlbumes(albumesFamosos);
 // 2- contar la cantidad de favoritos y pintarlo en el span correspondiente
 // 3- tener en cuenta: usar las palabra en plural o en singular, según cuando
 // sea necesario ( es decir: 1 album, 1 favorito / 2 albumes, 3 favoritos )
-function mostrarDatosEnPerfil() {
+function mostrarDatosEnPerfil(albumes) {
     // desarrollar la función 👇
+    const cantidadAlbumes = document.getElementById("cant-albums"),
+        cantidadFavoritos = document.querySelector("#cant-favoritos");
+
+    let contadorAlbum = 0,
+        contadorFavoritos = 0;
+
+    albumes.forEach( function(album) {
+    // albumes.forEach( (album) =>{
+        contadorAlbum++
+        // if (album.like == true) {
+        if (album.like) {
+            contadorFavoritos++
+        }
+    })
+
+    console.log(contadorAlbum);
+    console.log(contadorFavoritos);
+
+
+    if (contadorAlbum == 1) {
+        cantidadAlbumes.innerText = contadorAlbum + " álbum"
+    } else {
+        cantidadAlbumes.textContent = `${contadorAlbum} álbumes`
+    }
+    if (contadorFavoritos == 1) {
+        cantidadFavoritos.innerText = contadorFavoritos + " favorito"
+    } else {
+        cantidadFavoritos.textContent = `${contadorFavoritos} favoritos`
+    }
+    
 
 }
-mostrarDatosEnPerfil();
+mostrarDatosEnPerfil(albumesFamosos);
