@@ -62,7 +62,9 @@ function obtenerUsuario() {
     usuario = nombres.map( (nombre) => nombre.charAt(0).toUpperCase() + nombre.slice(1)).join(" ")
 
     // Insertando el dato en el HTML
-    nombreUsuario.textContent = usuario
+    // nombreUsuario.textContent = usuario
+    // nombreUsuario.createTextNode(usuario) // asî no se implementa con createTextNode
+    nombreUsuario.append(document.createTextNode(usuario)) // así se implementa con con createTextNode
     // nombreUsuario.textContent = usuario.toLowerCase()
     // nombreUsuario.innerText = `<div>${usuario}</div>`
     // nombreUsuario.textContent = `<div>${usuario}</div>`
@@ -70,7 +72,7 @@ function obtenerUsuario() {
 
 
 }
-// obtenerUsuario();
+obtenerUsuario();
 
 /* -------------------------------------------------------------------------- */
 /*                [2] FUNCION: renderizar tarjetas del almbumes               */

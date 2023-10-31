@@ -57,14 +57,34 @@ marcarFavorito()
 // 4- Si la busqueda nos da un resultado válido, procedemos a borrar el objeto del array
 // 5- Acto seguido debemos llamar a las funciones de renderizar y marcar favorito para que sean nuevamente aplicadas.
 
-function eliminarAlbum() {
+// window.addEventListener("keydown", (e) => { 
+window.addEventListener("keypress", (e) => { 
+    console.log(e);
+    // console.log((e.key == "f") ? "ok" : "no ok" );
+    eliminarAlbum(e)
+ })
+function eliminarAlbum(e) {
     // desarrollar la función 👇
-    // document.addEventListener("keydown", (e) => { 
-    window.addEventListener("keydown", (e) => { 
-        console.log((e.key == "f") ? "ok" : "no ok" );
-     })
+    console.log(e.key);
+    if (e.key == "f") {
+        const albumAEliminar = prompt("¿Qué álbum deseas eliminar?").toLowerCase()
+
+        const posicionBuscada = albumesFamosos.findIndex(albumABorrar => albumABorrar.nombre.toLowerCase() == albumAEliminar )
+        console.log(posicionBuscada);
+    // } else {
+        if (posicionBuscada == -1) {
+            alert("El álbum no se encuentra en la lista de reproduccion")
+        } else {
+            albumesFamosos.splice(posicionBuscada, 1)
+        }
+        
+        renderizarAlbumes(albumesFamosos)
+        marcarFavorito(albumesFamosos)
+        mostrarDatosEnPerfil(albumesFamosos)
+    }
+
 
 
 
 }
-eliminarAlbum();
+// eliminarAlbum();
