@@ -115,7 +115,8 @@ function renderizarAlbumes(listado) {
     */
 
     // Insercion atraves de template literals
-   listado.forEach(album => {
+   listado.forEach(album => 
+
     covers.innerHTML += `
         <li data-id="${album.id}">
             <img src="${album.imagen}" alt="${album.nombre}">
@@ -123,7 +124,8 @@ function renderizarAlbumes(listado) {
             <i id="${album.id}" class="fa fa-heart ${album.like ? "favorito" : ""} "  ></i>
         </li>
     `
-   });
+
+   );
 
 //    if (album.like == true) {
 //         console.log("Favorito");

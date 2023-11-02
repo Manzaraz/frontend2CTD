@@ -82,9 +82,5 @@ function eliminarAlbum(e) {
         marcarFavorito(albumesFamosos)
         mostrarDatosEnPerfil(albumesFamosos)
     }
-
-
-
-
 }
-// eliminarAlbum();
+
