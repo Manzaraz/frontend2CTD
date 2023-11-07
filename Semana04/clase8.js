@@ -156,7 +156,27 @@ function validarInformacion(usuario) {
 
 function mostrarMensajeExito(listado) {
 
-    setTimeout(() => {
-        console.log("hola");
-    }, 4000);
+    if (listado == 0) {
+        const divTemplate = document.createElement('div')
+        divTemplate.setAttribute("id", "exito")
+        divTemplate.style = "background:rgba(0, 255, 0, 0.2);padding:.5em 1em;color: red;margin: .5em 0;";
+        
+        divTemplate.innerHTML = `<p><span>¡Formulario completado con éxito!</span></p>`
+
+        form.appendChild(divTemplate)
+
+        const boton = document.querySelector("button")
+        boton.setAttribute("disabled", "")
+
+        const cajaExito = document.querySelector("#exito")
+
+
+        setTimeout(() => {
+            // console.log("hola");
+            boton.removeAttribute("disabled")
+            form.reset()
+            cajaExito.remove()
+        }, 4000);
+    }
+
 }
