@@ -154,6 +154,7 @@ function alternarColorTema() {
 function alternarTema() {
   const sitioElement = document.getElementById('sitio');
   sitioElement.classList.toggle('dark');
+  
 }
 const alternarTemaBtn = document.getElementById('cambiar-tema');
 alternarTemaBtn.addEventListener('click', alternarTema);

@@ -6,16 +6,46 @@
 /* -------------------------------------------------------------------------- */
 /*           [6] FUNCION: Escuchamos el evento de carga de la página          */
 /* -------------------------------------------------------------------------- */
+window.addEventListener("load", () => { 
+    const user = recuperarDataDelStorage()
+
+    renderizarElementos(user)
+ })
 
 /* -------------------------------------------------------------------------- */
 /*                 [7] FUNCION: Recuperar la info del storage                 */
 /* -------------------------------------------------------------------------- */
+function recuperarDataDelStorage() {
+    // buscamos la data almacenada en nuestro bolsillo (localStorage)
+    // const datosUsuario = localStorage.getItem("user")
+    // // console.log(datosUsuario);
 
+    // // necesito transformar esa info de datosUsuario para que sea legible por JS
+    // const datosParseados = JSON.parse(datosUsuario)
+    // // console.log(datosParseados);
+    const datosParseados = JSON.parse(localStorage.getItem("user"))
+
+    return datosParseados
+}
 
 /* -------------------------------------------------------------------------- */
 /*                [8] FUNCION: Renderizamos la info en pantalla               */
 /* -------------------------------------------------------------------------- */
+function renderizarElementos(objetoJS) {
+    console.log(objetoJS);
+    console.log(objetoJS.email);
+    console.log(objetoJS.rol);
 
+    // <h4 id="email"></h4>
+    // <p id="perfil"></p>
+    const email = document.querySelector("#email")
+    const perfil = document.querySelector("#perfil")
+
+// pintamos las propiedades en pantalla (renderizamos)
+    email.textContent = objetoJS.email
+    perfil.innerText = objetoJS.rol
+
+}
 
 
 /* ----------------------------- MESA DE TRABAJO ---------------------------- */

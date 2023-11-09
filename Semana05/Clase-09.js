@@ -173,7 +173,16 @@ formulario.addEventListener('submit', function (evento) {
 
 function navegarPaginaExito() {
     //   desarrollar la funcion aqui
+    const btn = document.querySelector("button")
+    btn.setAttribute("disabled", true)
+    btn.textContent = "Cargando..."
 
-    location.replace('./usuario.html')
+    localStorage.setItem("user", JSON.stringify(estadoUsuario))
+
+    setTimeout(() => {
+        location.replace('./usuario.html')
+        // console.log("redirige");
+        
+    }, 3000);
 
 }
