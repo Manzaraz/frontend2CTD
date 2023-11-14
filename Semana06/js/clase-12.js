@@ -11,17 +11,6 @@
 
 function consultaApi(endpoint) {
 
-    fetch(endpoint)
-        .then(objetoRespuesta => {
-            console.log(objetoRespuesta);
-            const promesaJson = objetoRespuesta.json();
-            return promesaJson;
-        })
-        .then(datosJs => {
-            console.log(datosJs);
-            renderizarElementos(datosJs);
-        })
-
 }
 
 /* -------------------------------------------------------------------------- */

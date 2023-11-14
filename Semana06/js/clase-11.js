@@ -1,6 +1,6 @@
 let listadoComentarios = [{
         postId: 1,
-        id: 1,
+        id: 1, 
         name: 'id labore ex et quam laborum',
         email: 'Eliseo@gardner.biz',
         body: 'laudantium enim quasi est quidem magnam voluptate …utem quasi\nreiciendis et nam sapiente accusantium'
@@ -75,6 +75,25 @@ let listadoComentarios = [{
 /* -------------------------------------------------------------------------- */
 /*                      [1] FUNCION: Escuchamos el click                      */
 /* -------------------------------------------------------------------------- */
+const boton = document.querySelector("button")
+
+boton.addEventListener("click", () => { 
+  console.log("Click para ver los comenarios...");  
+
+    //  esta funcion me retorna una promesa, poer eso capturamos su resultado con un metodo then()
+   consultaAsincrona("endpoint") // la ruta es la correcta, entonces debería pasar por el then con el resultado esperado (el listado para iterar)
+    // consultaAsincrona("endpointmal") // como el endpoint o direccion está mal me deberia recahazar la promesa y poder capturar con el catch para ver en que me equivoco
+        .then((resultado => {
+            console.log(resultado);
+            renderizarElementos(resultado)
+        }))
+        .catch( (error) => {
+            console.log(error);
+            console.log(error.message);
+        })
+
+    console.log("hello world"); // otra pieza de código que se puede ejecutar asîncronamente
+ })
 
 
 /* -------------------------------------------------------------------------- */
@@ -83,7 +102,23 @@ let listadoComentarios = [{
 // Creamos una funcion que retorna una promesa despues de 2,5 segundos.
 // La idea es simular la demora de tiempo en responder de un servidor.
 
+function consultaAsincrona(ruta) {
+    // Retornar una promesa 
+    return new Promise(function(resolve, reject) {
 
+        setTimeout(() => {
+            // if(texto == "endpoint") {
+            //     // resolve('Success!');
+            //     resolve(listadoComentarios);
+            // }
+            // else {
+            //     reject('Failure!');
+            // }
+            ruta === "endpoint" ? resolve(listadoComentarios) : reject( {message: "Error 404, recurso no encontrado"} )
+
+        }, 3000);
+     })
+}
 
 
 /* ----------------------------- Mesa de trabajo ---------------------------- */
@@ -102,4 +137,5 @@ let listadoComentarios = [{
 
 function renderizarElementos(listado){
     // desarrollar la funcion 👇
+    console.log(listado);
 }
