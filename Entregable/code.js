@@ -31,6 +31,7 @@ const cambiarTema = document.querySelector('#cambiar-tema');
 profileBtn.addEventListener("click", renderizarDatosUsuario);
 materiasBtn.addEventListener("click", recorrerListadoYRenderizarTarjetas);
 cambiarTema.addEventListener("click", alternarColorTema);
+
 /* --------------------------- NO TOCAR HASTA ACÁ --------------------------- */
 
 // function obtenerDatosDelUsuario() {
@@ -65,108 +66,66 @@ cambiarTema.addEventListener("click", alternarColorTema);
 //       document.querySelector("#sobre-mi").classList.remove("oculto")
 //       console.log(e.key);
 //     }
-//   })
+//   }) 
+
 
 function obtenerDatosDelUsuario() {
   /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
-  datosPersona.nombre = prompt("Por favor, introduce tu nombre:");
-  
-  const anioNacimiento = parseInt(prompt("Por favor, introduce tu año de nacimiento:"));
-  datosPersona.anioNacimiento = anioNacimiento;
-  
-  datosPersona.ciudad = prompt("Por favor, introduce tu ciudad:");
-  
-  const javaScript = confirm("¿Te interesa JavaScript?");
-  datosPersona.javaScript = javaScript;
-  
-  const anioActual = new Date().getFullYear();
-  datosPersona.edad = anioActual - anioNacimiento;
-  
-  console.log("Datos recopilados:", datosPersona);
+    do {
+        datosPersona.nombre = prompt("Ingresa tu nombre de usuario:")
+    } while (datosPersona.nombre === null || datosPersona.nombre == "" || datosPersona.nombre.length < 3);
+    do {
+        fechaNacimiento = parseInt(prompt("Ingresa tu fecha de nacimiento:"))
+        datosPersona.edad = 2023 - fechaNacimiento 
+    } while (!fechaNacimiento || fechaNacimiento.isNaN);
+    do {
+        datosPersona.ciudad = prompt("Ingresa el nombre tu Ciudad ")
+    } while (datosPersona.ciudad === null || datosPersona.ciudad == "");
+    leInteresaJs = confirm("Te interesa Javascript?") 
+    if (leInteresaJs) {
+        datosPersona.interesPorJs = "Si" 
+    }else {
+        datosPersona.interesPorJs = "No"
+    }
 }
-  // consultarDatos();
 function renderizarDatosUsuario() {
   /* ------------------- NO TOCAR NI ELIMINAR ESTA FUNCION. ------------------- */
   obtenerDatosDelUsuario();
   /* --------------- PUNTO 2: Escribe tu codigo a partir de aqui --------------- */
-  const nombreElement = document.getElementById("nombre");
-  const edadElement = document.getElementById("edad");
-  const ciudadElement = document.getElementById("ciudad");
-  const interesElement = document.getElementById("interes");
-  //
-  nombreElement.textContent = datosPersona.nombre;
-  edadElement.textContent = datosPersona.edad;
-  ciudadElement.textContent = datosPersona.ciudad;
-  if (datosPersona.javaScript) {
-    interesElement.textContent = "Sí";
-  } else {
-    interesElement.textContent = "No";
-  }
+    const nombre= document.querySelector("#nombre");
+    nombre.textContent = datosPersona.nombre
+    const edad = document.querySelector("#edad");
+    edad.textContent = datosPersona.edad
+    const ciudad = document.querySelector("#ciudad");
+    ciudad.textContent = datosPersona.ciudad
+    const interesPorJs = document.querySelector("#javascript");
+    interesPorJs.textContent = datosPersona.interesPorJs
 }
 function recorrerListadoYRenderizarTarjetas() {
   /* ------------------ PUNTO 3: Escribe tu codigo desde aqui ------------------ */
-  
-let materiasRenderizadas = false;
-  if (materiasRenderizadas) {
-    return;
-  }
-  const fila = document.getElementById('fila');
-  const materias = [
-    {
-      nombre: 'Matemáticas',
-      lenguajes: 'JavaScript, Python',
-      bimestre: 'Primer Bimestre',
-      imagenSrc: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/164EE/production/_109347319_gettyimages-611195980.jpg' ,
-      imagenAlt: 'Matemáticas',
-    },
-    
-  ];
-  materias.forEach((materia) => {
-    
-    const tarjeta = document.createElement('div');
-    tarjeta.classList.add('caja');
-    const imagen = document.createElement('img');
-    imagen.src = materia.imagenSrc;
-    imagen.alt = materia.imagenAlt;
-    
-    const parrafoLenguajes = document.createElement('p');
-    parrafoLenguajes.classList.add('lenguajes');
-    parrafoLenguajes.textContent = 'Lenguajes: ' + materia.lenguajes;
-    
-    const parrafoBimestre = document.createElement('p');
-    parrafoBimestre.classList.add('bimestre');
-    parrafoBimestre.textContent = 'Bimestre: ' + materia.bimestre;
-    
-    tarjeta.appendChild(imagen);
-    tarjeta.appendChild(parrafoLenguajes);
-    tarjeta.appendChild(parrafoBimestre);
-    
-    fila.appendChild(tarjeta);
-  });
-  
-  materiasRenderizadas = true;
-const obtenerMateriasBtn = document.getElementById('obtenerMateriasBtn');
-obtenerMateriasBtn.addEventListener('click', renderizarMaterias);
+    const mostrarMaterias = document.querySelector("#fila");
+    mostrarMaterias.innerHTML = ""
+    console.log(mostrarMaterias)
+    listado.forEach(lenguaje => {
+        mostrarMaterias.innerHTML += `
+        <div class="caja">
+            <img src="${lenguaje.imgUrl}" alt="${lenguaje.lenguajes}">
+            <p class="lenguajes">${lenguaje.lenguajes}</p>
+            <p class="bimestre">${lenguaje.bimestre}</p>
+        </div>
+`
+    })
 }
 function alternarColorTema() {
   /* --------------------- PUNTO 4: Escribe tu codigo aqui --------------------- */
  
-function alternarTema() {
-  const sitioElement = document.getElementById('sitio');
-  sitioElement.classList.toggle('dark');
-  
-}
-const alternarTemaBtn = document.getElementById('cambiar-tema');
-alternarTemaBtn.addEventListener('click', alternarTema);
+  let oscuro = document.querySelector("#sitio")
+    oscuro.classList.toggle("dark");
 }
 /* --------------------- PUNTO 5: Escribe tu codigo aqui --------------------- */
-function manejarEventoDeTeclado(event) {
-if (event.key === 'F' || event.key === 'f') {
-  const parrafoSobreMi = document.getElementById('sobre-mi');
-  parrafoSobreMi.classList.remove('oculto');
-  
-  
-  document.removeEventListener('keydown', manejarEventoDeTeclado);
-}
-}
-document.addEventListener('keydown', manejarEventoDeTeclado);
+window.addEventListener("keydown", (e) => { 
+    let sobreMiBtn = document.getElementById("sobre-mi");
+    if (e.key.toLowerCase() === "f") {
+        sobreMiBtn.classList.remove("oculto");
+    }
+});
