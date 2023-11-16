@@ -6,18 +6,47 @@
 /*                       [4] FUNCION: Consulta a la API                       */
 /* -------------------------------------------------------------------------- */
 // En este caso vamos a consultar a un servidor del cual nos vamos a traer la data.
-// Esta API tiene su documentación en: https://jsonplaceholder.typicode.com/
+// Esta API tiene su documentación en: const boton = document.querySelector('button');
 // Vamos a implementar el endpoint que nos devuelve comentarios para mostrarlos en pantalla.
 
 function consultaApi(endpoint) {
+    fetch(endpoint)
+        .then( respuestaEnJSON  => {
+            console.log(respuestaEnJSON);
+            // return JSON.parse(respuestaEnJSON)
+            if (!respuestaEnJSON.ok) {
+            // if (respuestaEnJSON.status >= 300) {
+                // console.log("mal");
+                return Promise.reject(respuestaEnJSON);
+            }
+            return respuestaEnJSON.json()
+            
+        })
+        .then( datoJs => {
+            // console.log();
+            renderizarElementdatoJsos(datoJs)
+        })
+        .catch( err => console.log(err.statusText))
 
+
+    
 }
 
 /* -------------------------------------------------------------------------- */
 /*                      [5] FUNCION: Escuchamos el click                      */
 /* -------------------------------------------------------------------------- */
 // Vamos a reimplementar la escucha del click lanzar las nuevas funciones.
+const boton = document.querySelector("button")
+const endpoint = 'https://jsonplaceholder.typicode.com/comments';
 
+
+boton.addEventListener("click", () => { 
+    console.log("click para ver comentarios...");
+    
+    consultaApi(endpoint)
+
+    console.log("Fin de la carga de los comentarios");
+ })
 
 
 /* -------------------------------------------------------------------------- */
@@ -26,6 +55,42 @@ function consultaApi(endpoint) {
 // Acá vamos a reutilizar la función de renderizar renderizarElementos, implementando
 // el .map() y .join() para obtener el resultado esperado.
 
+function renderizarElementos(listado) {
+    console.log(listado);
+    const comentarios = document.querySelector(".comentarios")
+
+//     <div class="comentario">
+    //     <h4>mail@mail.com</h4>
+    //     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam ducimus aut provident saepe blanditiis ab quia dolorum perferendis laudantium hic!</p>
+    // </div>
+    
+    /* Renderizado con  con foreach 
+    comentarios.innerHTML = ""
+    listado.forEach(comentario => {
+        comentarios.innerHTML += `
+            <div class="comentario" data-id="${comentario.id}">
+                <h4>${comentario.email}</h4>
+                <p>${comentario.body}</p>
+            </div>
+        `
+    });
+    */
+   
+    /* Renderizando con el método map */
+    comentarios.innerHTML = listado.map( comentario => {
+        return `
+            <div class="comentario" data-id="${comentario.id}">
+                <h4>${comentario.email}</h4>
+                <p>${comentario.body}</p>
+            </div>
+        `
+    }).join("")
+
+
+    console.log(listado);
+
+
+}
 
 
 /* ----------------------------- Mesa de trabajo ---------------------------- */
