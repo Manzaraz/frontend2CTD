@@ -77,9 +77,8 @@ window.addEventListener('load', function () {
                 alert("Error del servidor")
             }
         })
-
-
     };
-
-
 });
+
+// marlen@delvalle.com
+// 123456
