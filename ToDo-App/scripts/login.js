@@ -42,7 +42,7 @@ window.addEventListener('load', function () {
     /*                     FUNCIÓN 2: Realizar el login [POST]                    */
     /* -------------------------------------------------------------------------- */
     function realizarLogin(settings) {
-        // console.log(settings);
+        console.log(settings);
         console.log("Lanzar la consulta a la API...");
 
         fetch(`${url}/users/login`, settings)
@@ -51,6 +51,9 @@ window.addEventListener('load', function () {
 
                 // manejar el error de la request.
                 if (response.ok) return response.json()
+
+                // En caso de que la propiedad ok de la respuesta en false
+                return Promise.reject(response)
 
             })
             .then(data => {

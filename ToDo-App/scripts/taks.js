@@ -1,21 +1,39 @@
 // SEGURIDAD: Si no se encuentra en localStorage info del usuario
 // no lo deja acceder a la página, redirigiendo al login inmediatamente.
-
+// if (!localStorage.jwt) {
+if (!localStorage.getItem("jwt")) {
+  console.log("No lo tengo");
+  location.replace("./index.html")
+}
 
 
 /* ------ comienzan las funcionalidades una vez que carga el documento ------ */
 window.addEventListener('load', function () {
 
   /* ---------------- variables globales y llamado a funciones ---------------- */
-  
+  const url = "https://todo-api.ctd.academy/v1"
+  const urlTareas = `${url}/tasks`;
+  const urlUsuario = `${url}/users/getMe`;
+  const token = JSON.parse(localStorage.jwt)
 
+  const btnCerrarSesion = document.querySelector('#closeApp');
+  const formCrearTarea = document.querySelector('.nueva-tarea');
+  const nuevaTarea = document.querySelector('#nuevaTarea');
+
+  obtenerNombreUsuario()
+  consultarTareas()
 
   /* -------------------------------------------------------------------------- */
   /*                          FUNCIÓN 1 - Cerrar sesión                         */
   /* -------------------------------------------------------------------------- */
 
   btnCerrarSesion.addEventListener('click', function () {
-   
+   const cerrarSesion = confirm("¿Desas cerrar sesión?")
+    console.warn(cerrarSesion);
+    if (cerrarSesion) {
+      localStorage.clear()
+      location.replace("./index.html")
+    }
 
 
 
@@ -25,11 +43,24 @@ window.addEventListener('load', function () {
   /*                 FUNCIÓN 2 - Obtener nombre de usuario [GET]                */
   /* -------------------------------------------------------------------------- */
 
-  function obtenerNombreUsuario() {
-   
+  function obtenerNombreUsuario() { 
+    const settings = {
+      method: "GET",
+      headers: {
+        // authorization: JSON.stringify(token) // si stringifico le afecto el valor del token que lee la API y me rechaza con el error 401
+        authorization: token 
+      }
+    }
 
-
-
+    console.log("consulto mi usuario a la api...");
+    fetch(urlUsuario, settings)
+      .then( response => {if (response.ok) return response.json()})
+      .then( dataUsuario => {
+        // console.log(dataUsuario);
+        console.log(dataUsuario.firstName);
+        const nombreUsuario = document.querySelector(".user-info p")
+        nombreUsuario.textContent = dataUsuario.firstName
+      })
   };
 
 
@@ -38,11 +69,28 @@ window.addEventListener('load', function () {
   /* -------------------------------------------------------------------------- */
 
   function consultarTareas() {
+
+    const settings = {
+      method: "GET",
+      headers: {
+        authorization: token
+      }
+    }
     
+    console.log("🚩 consultamos tareas");
     
+    fetch(urlTareas, settings)
+      .then( response => response.json())
+      .then( tareas =>  {
+        console.log("tareas del usuario");
+        console.log(tareas);
 
+        renderizarTareas(tareas)
+        botonesCambioEstado()
+        botonBorrarTarea()
 
-
+      })
+      .catch(err => console.log(err)) // se puede prescindir de esta línea
   };
 
 
@@ -51,7 +99,34 @@ window.addEventListener('load', function () {
   /* -------------------------------------------------------------------------- */
 
   formCrearTarea.addEventListener('submit', function (event) {
+    event.preventDefault()
+
+    console.log("🚩 Creamos tarea nueva");
+    console.log(nuevaTarea.value);
     
+    const payload = {
+      description: nuevaTarea.value.trim(),
+      completed: false
+    }
+    const settings = {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: token
+      }
+    }
+    
+    console.log("🚩 Creando una nuevatarea en la API");
+    fetch(urlTareas, settings)
+      .then(response => response.json())
+      .then( tarea => {
+        console.log(tarea);
+        consultarTareas()
+      })
+      .catch(err => console.log(err))
+
+
 
 
 
@@ -62,9 +137,57 @@ window.addEventListener('load', function () {
   /* -------------------------------------------------------------------------- */
   /*                  FUNCIÓN 5 - Renderizar tareas en pantalla                 */
   /* -------------------------------------------------------------------------- */
-  function renderizarTareas(listado) {
+  function renderizarTareas(tareas) {
+    console.log(tareas);
+
+    const tareasPendientes = document.querySelector(".tareas-pendientes")
+    const tareasTerminadas = document.querySelector(".tareas-terminadas")
+
+    tareasPendientes.innerHTML = ""
+    tareasTerminadas.innerHTML = ""
+
+    // buscamos el numero de tareas finalizadas
+
+    const numeroFinalizadas = document.querySelector("#cantidad-finalizadas")
+    let contador = 0
+    numeroFinalizadas.textContent = contador
 
 
+    tareas.forEach(tarea => {
+      // variable intermedia para manipular la fecaha
+      let fecha = new Date(tarea.createdAt)
+      
+      if (tarea.completed) {
+        contador++ 
+        // lo mandamos al listado de tareas completadas
+        tareasTerminadas.innerHTML += `
+          <li class="tarea">
+            <div class="hecha">
+              <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <div class="descripcion">
+              <p class="nombre">${tarea.description}</p>
+              <div class="cambios-estados">
+                <button class="change incompleta" id="${tarea.id}"><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="borrar" id="${tarea.id}"><i class="fa-regular fa-trash-can"></i></button>
+              </div>
+            </div>
+          </li>
+        `
+      } else {
+        // lo mandamos al listado de tareas incompletas
+        tareasPendientes.innerHTML += `
+          <li class="tarea">
+            <button class="change" id="${tarea.id}"><i class="fa-regular fa-circle"></i></button>
+            <div class="descripcion">
+              <p class="nombre">${tarea.description}</p>
+              <p class="timestamp">${fecha.toLocaleDateString()}</p>
+            </div>
+          </li>
+        `
+      }
+      numeroFinalizadas.textContent = contador
+    });
 
 
 
@@ -77,6 +200,47 @@ window.addEventListener('load', function () {
   /* -------------------------------------------------------------------------- */
   function botonesCambioEstado() {
     
+    const btnCambioEstado = document.querySelectorAll(".change")
+
+    btnCambioEstado.forEach(boton => {
+      boton.addEventListener("click", (e) => { 
+        console.log("cambio estado de tarea");
+        console.log(e.target.id);
+
+        const id = e.target.id
+        const url = `${urlTareas}/${id}`
+
+        const payload = {}
+
+        // segun el tipo de boton que fue clickead, vamos a ver si contiene la clase incompleto
+        if (e.target.classList.contains("incompleta")) {
+          // si esta completa la paso a pendiente
+          payload.completed = false          
+        } else {
+          // sino . la paso a completada
+          payload.completed = true
+        }
+        console.log(payload);
+
+        const settingsCambio = {
+          method: "PUT",
+          headers: {
+            "Authorization": token,
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(payload),
+        }
+
+        fetch(url, settingsCambio)
+          .then(response => {
+            console.log(response.status);
+            // vuelvo a consultar tareas actualizadas para que las pinte como completadas
+            consultarTareas()
+          })
+          .catch(err => console.log(err))
+  
+       })
+    })
     
 
 
