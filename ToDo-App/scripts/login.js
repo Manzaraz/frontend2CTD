@@ -7,6 +7,20 @@ window.addEventListener('load', function () {
     // console.log(form);
 
     
+    const errors = {
+        email: false,        
+        password: false
+    }
+    // Aqui en este punto yo me encargo de mandar un a llamar la las funcion normalizar Texto y las validaciones
+    // Cuando modifico el contenido del input se desencadena el evento el cual lo capturará la función que se encarga de validar
+    email.addEventListener("input", e => validarEmail(e))
+    password.addEventListener("input", validarContrasenia)
+
+    // el evento blur desencadenar el evento una vez que abandono el input, por eso si está vacio, le indico que lo obligue a cargarlo
+    email.addEventListener("blur", e => isEmpty(`⚠️ Se requiere que ingrese su ${email.name}`, e))
+    password.addEventListener("blur", e => isEmpty(`⚠️ Se requiere que ingrese su ${email.name}`, e))
+
+    
     /* -------------------------------------------------------------------------- */
     /*            FUNCIÓN 1: Escuchamos el submit y preparamos el envío           */
     /* -------------------------------------------------------------------------- */
@@ -18,6 +32,7 @@ window.addEventListener('load', function () {
             email: email.value,
             password: password.value
         }
+;
         // vemos el objeto que recibimos del formulario
         console.log(payload);
 

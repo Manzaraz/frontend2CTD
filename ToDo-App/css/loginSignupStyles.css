@@ -104,3 +104,19 @@ form button:hover{
 .ingresarA a:hover{
     color: var(--azul);
 }
+
+/* Estilos para ver la validación */
+form span {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.invalid {
+    border: solid 2px red;
+    box-shadow: 0 0 10px red;
+}
+
+.error {
+    color: red;
+    display: block;
+}

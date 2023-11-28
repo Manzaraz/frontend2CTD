@@ -34,9 +34,6 @@ window.addEventListener('load', function () {
       localStorage.clear()
       location.replace("./index.html")
     }
-
-
-
   });
 
   /* -------------------------------------------------------------------------- */
