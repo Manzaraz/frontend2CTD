@@ -1,25 +1,37 @@
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCION 1                                 */
 /* -------------------------------------------------------------------------- */
-// function iniciarJuego() {
-//     // Saludamos al vistante
-//     alert("Bienvenido al juego de Piedra, Pael o Tijera de Frontend 2.!");
-//     // Guardar el nombre en una variable
-//     const nombre = prompt("Su nombre");
+function iniciarJuego() {
+    // Saludamos al vistante
+    alert("Bienvenido al juego de Piedra, Pael o Tijera de Frontend 2.!");
+    // Guardar el nombre en una variable
+    const nombre = prompt("Su nombre");
 
-//     // alert("Hola " + nombre + ".")
-//     alert(`¡Hola estimado: ${nombre}, Mucha suerte!`)
+    // alert("Hola " + nombre + ".")
+    alert(`¡Hola estimado: ${nombre}, Mucha suerte!`)
 
-//     // Mostramos los datos en consola
-//     console.log("---------------------------");
-//     console.log("El nombre del jugador es: ");
-//     console.log(nombre);
-//     console.log("---------------------------");
+    // Mostramos los datos en consola
+    console.log("---------------------------");
+    console.log("El nombre del jugador es: ");
+    console.log(nombre);
+    console.log("---------------------------");
 
-//     return nombre
-// }
+    return nombre
+}
 
+
+/* -------------------------------------------------------------------------- */
+/*                          CONSIGNA MESA DE TRABAJO                          */
+/* -------------------------------------------------------------------------- */
+// 1- Modificar la funcion de iniciarJuego(), validar si ingresa un dato válido como nombre.
+// 2- Si no ingresa un texto, o tiene menos de 3 caracteres debemos volverle a pedir que lo ingrese.
+// 3- Finalmente el nombre devuelto debe estar todo en mayúsculas.
+
+
+
+/*  
 // ***************************
+// Resolución de la mesa de uno de los equipos
 // Equipo 2
 // ***************************
 
@@ -58,10 +70,6 @@ function iniciarJuego() {
 // let nombreJugador = iniciarJuego();
 // console.log(nombreJugador);
 
-/* -------------------------------------------------------------------------- */
-/*                          CONSIGNA MESA DE TRABAJO                          */
-/* -------------------------------------------------------------------------- */
-// 1- Modificar la funcion de iniciarJuego(), validar si ingresa un dato válido como nombre.
-// 2- Si no ingresa un texto, o tiene menos de 3 caracteres debemos volverle a pedir que lo ingrese.
-// 3- Finalmente el nombre devuelto debe estar todo en mayúsculas.
+
+*/ 
 
