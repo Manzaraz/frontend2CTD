@@ -1,80 +1,90 @@
-// 🚩 Antes de empezar, vinculemos el HTML solo con el script de clase 5.
+// 🚩 Antes de empezar, vinculemos el HTML solo con el script de clase 4.
 
-// Vamos a interactuar con el DOM para agregarle mas estilos a nuestro sitio.
-// 👇 Primero capturemos todos los elementos que vamos a modificar.
-const sitio = document.querySelector("body")
-let btnTema = document.querySelector(".tema button")
-let menuItems = document.querySelectorAll("nav li")
-let contenedorDeNoticias = document.querySelector("main")
-let articulos = document.querySelectorAll("article")
-let titulos = document.querySelectorAll("article h2")
+const listadoNoticias = [{
+    titulo: "La emoción de Lisandro Martínez",
+    epigrafe: "La increíble ovación de los hinchas de Manchester United al defensor argentino: 'Quise llorar'.",
+    foto: "./img/futbol.webp"
+},
+{
+    titulo: "La renuncia de Liz Truss",
+    epigrafe: "Boris Johnson interrumpió sus vacaciones y vuelve a sonar fuerte entre los posibles sucesores.",
+    foto: "./img/boris.webp"
+},
+{
+    titulo: "Los motivos",
+    epigrafe: "Una escuela argentina fue elegida entre las diez mejores del mundo.",
+    foto: "./img/escuela.webp"
+}
+]
+
+// Vamos a trabajar con nodos de manera dinámica, sobre todo crearlos desde JS en vez de que estén estáticos en el HTML
+// Para eso vamos a valernos de array listadoNoticias que tenemos más arriba
+// ¿Cual es la idea? utilizar la información que nos llega del listado para presentarla en pantalla.
+
+// Primero, mantengamos el HTML vinculado solo con clase5 y clase6 👌
+
+/* -------------------------- PRACTICANDO ATRIBUTOS ------------------------- */
+// Completemos correctamente el 'alt' de cada imagen con la frase "miniatura de noticia"
+
+const imagenes = document.querySelectorAll('.noticias article img');
+console.log(imagenes);
+console.log("alt: "+imagenes[0].getAttribute('alt')) //vemos que está vacío
+// rellenamos el atributo👇
+imagenes[0].setAttribute('alt', 'miniatura de noticia');
+console.log("alt: "+imagenes[0].getAttribute('alt')) // ahora vemos que es un texto
+
+// Hagamoslo más dinámico y recorramos todas las imagenes👇
+for (let i = 0; i < imagenes.length; i++) {
+    imagenes[i].setAttribute('alt', 'miniatura de noticia');
+    console.log(imagenes[i])
+}
 
 
-// console.log(titulos)
+/* ---------------------- PRACTICANDO CREACION DE NODOS --------------------- */
+// 1- Ahora vamos a ir al HTML y eliminar los 3 Article que se encuentran en el main.
+// 2- Comentamos la parte de este código de "Practicando atributos"
+// 3- Vamos a crear de a uno e insertarlos en el HTML usando un bucle👇
 
-/* ---------------------------- Editado los ITEMS --------------------------- */
-// 👇acá podemos ver todas las propiedades CSS que podemos modificar con JS
-// console.log(menuItems);
-// console.log(menuItems[1].style);
+const main = document.querySelector('main');
 
-// agregamos manualmente nuevos estilos en el menú
-// menuItems.forEach(function (item) {
-//     item.style.textTransform = "uppercase"
-//     item.style.color = "aqua";
-//     item.style.backgroundColor = "rgba(255,255,255, 0.2)"
-//     item.style.borderRadius = "50vh"
-//     item.style.padding = "10px"
-//     item.style.marginTop = "20px"
-// })
-menuItems.forEach(item => {
-    item.style.textTransform = "uppercase"
-    item.style.color = "aqua";
-    item.style.backgroundColor = "rgba(255,255,255, 0.2)"
-    item.style.borderRadius = "50vh"
-    item.style.padding = "10px"
-    item.style.marginTop = "20px"
+listadoNoticias.forEach(noticia => {
+    // creamos los elementos👇
+    const article = document.createElement('article');
+    const h2 = document.createElement('h2');
+    const img = document.createElement('img');
+    const p = document.createElement('p');
+
+    // completamos los nodos con sus propiedades👇
+    h2.innerText = noticia.titulo
+    img.setAttribute('src', noticia.foto)
+    img.setAttribute('alt', "miniatura de noticia")
+    p.innerText = noticia.epigrafe
+
+    // armamos los nodos dentro de donde van👇
+    article.appendChild(h2)
+    article.appendChild(img)
+    article.appendChild(p)
+
+    // finalmente lo insertamos en el HTML👇
+    main.appendChild(article)
 })
-
-// for (let i = 0; i < menuItems.length; i++) {
-//     menuItems[i].style.color = "aqua";
-// }
-
-/* ----------------------------- Editando clases ---------------------------- */
-
-// vamos probando uno a uno los métodos
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.contains("dark"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.add("dark"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.remove("dark"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.remove("dark")); // si yo la aplico nuevamente en este caso no pasa nada en nuestro layout
-// console.log(sitio.classList.toggle("dark"));
-// console.log(sitio.classList);
-// console.log(sitio.classList.toggle("dark"));
-// console.log(sitio.classList);
-// console.log(sitio.classList.toggle("dark"));
-// console.log(sitio.classList);
-// console.log(sitio.classList.toggle("dark"));
-// console.log(sitio.classList);
-
 
 
 
 /* -------------------------------------------------------------------------- */
 /*                          CONSIGNA MESA DE TRABAJO                          */
 /* -------------------------------------------------------------------------- */
-// Primero debemos comentar o eliminar las líneas que modifican las clases de "sitio"
-// 1- Desarrollar la función a continuacion para que el usuario elija el tema del sitio.
-// 2- Debemos preguntarle al usuario mediante un confirm si desea usar el modo oscuro.
-// 3- Si el usuario confirma debemos aplicar la clase "dark" al "sitio", si cancela debe quedar en modo claro.
-// 4- A su vez, si está en modo onsecuritypolicyviolation, el texto del boton debe decir "Cambiar a modo claro 🌞". De lo contrario, si está en modo claro debeb decir "Cambiar a modo oscuro 🌛"
-function elegirTema() {
+// Antes de comenzar vamos a comentar la parte de PRACTICANDO ATRIBUTOS y PRACTICANDO CREACION DE NODOS.
+// Una vez que solo tenemos el código comentado podemos empezar la practica.
+// 1- Debemos reutilizar el "listadoNoticias" para lograr el mismo resultado de crear los nodos dinamicamente.
+// 2- La diferencia ahora radica en utilizar un bucle y dentro del mismo utilizar la notación de Plantillas Literales (con comillas invertidas -> ``)
+// 3- El resultado debe ser el mismo que en el caso anterior pero vamos a implementar el método innerHTML para insertar la plantilla creada.
+// Ejemplo: si quiero insertar un titulo en el body, haría los siguiente:
+// document.querySelector('body').innerHTML += `<h1>Nuevo Título</h1>`;
+
+function renderizandoElementos() {
+// desarrollar la consigna aquí
+
 
 }
-elegirTema();
+renderizandoElementos();
