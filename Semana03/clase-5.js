@@ -69,8 +69,6 @@ function obtenerUsuario() {
     // nombreUsuario.innerText = `<div>${usuario}</div>`
     // nombreUsuario.textContent = `<div>${usuario}</div>`
     // nombreUsuario.innerHTML = `<div>${usuario}</div>`
-
-
 }
 obtenerUsuario();
 

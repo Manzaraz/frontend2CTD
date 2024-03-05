@@ -156,10 +156,10 @@ function validarInformacion(usuario) {
 
 function mostrarMensajeExito(listado) {
 
-    if (listado == 0) {
+    if (listado.length == 0) {
         const divTemplate = document.createElement('div')
         divTemplate.setAttribute("id", "exito")
-        divTemplate.style = "background:rgba(0, 255, 0, 0.2);padding:.5em 1em;color: red;margin: .5em 0;";
+        divTemplate.style = "background:rgba(0, 255, 0, 0.2);padding:.5em 1em;color: green;margin: .5em 0;";
         
         divTemplate.innerHTML = `<p><span>¡Formulario completado con éxito!</span></p>`
 
@@ -178,5 +178,4 @@ function mostrarMensajeExito(listado) {
             cajaExito.remove()
         }, 4000);
     }
-
 }

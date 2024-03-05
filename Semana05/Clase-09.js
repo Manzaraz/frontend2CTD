@@ -97,15 +97,17 @@ function validarEmail(email) {
 function validarPassword(password) {
 
     let resultado = false
+    console.log(password);
 
-    // let regExp = new RegExp("/^[A-Za-z\d$@$!%*?&]{6,12}+$/")
+    let regExp = /^(?=.*\d)(?=.*[a-z]).{6,20}$/
+    // let regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/
 
-    // if (regExp.test(password)) {
-        if (password.length > 5 && !password.includes(" ")) {
+    if (password.match(regExp)) {
+    // if (password.length > 5 && !password.includes(" ")) {
             
-            resultado = true
-            console.log("cumple");
-        }
+        resultado = true
+        console.log("cumple");
+    }
     
     
     return resultado
