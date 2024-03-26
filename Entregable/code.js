@@ -5,7 +5,6 @@ let datosPersona = {
   ciudad: "",
   interesPorJs: "",
 };
-
 const listado = [{
     imgUrl: "https://huguidugui.files.wordpress.com/2015/03/html1.png",
     lenguajes: "HTML y CSS",
@@ -22,110 +21,56 @@ const listado = [{
     bimestre: "3er bimestre",
   },
 ];
-
 const profileBtn = document.querySelector("#completar-perfil");
 const materiasBtn = document.querySelector("#obtener-materias");
 const verMasBtn = document.querySelector("#ver-mas");
 const cambiarTema = document.querySelector('#cambiar-tema');
-
 profileBtn.addEventListener("click", renderizarDatosUsuario);
 materiasBtn.addEventListener("click", recorrerListadoYRenderizarTarjetas);
 cambiarTema.addEventListener("click", alternarColorTema);
-
 /* --------------------------- NO TOCAR HASTA ACÁ --------------------------- */
-
-// function obtenerDatosDelUsuario() {
-//   /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
-
-// }
-
-// function renderizarDatosUsuario() {
-//   /* ------------------- NO TOCAR NI ELIMINAR ESTA FUNCION. ------------------- */
+// function mainFunction() {
 //   obtenerDatosDelUsuario();
-//   /* --------------- PUNTO 2: Escribe tu codigo a partir de aqui --------------- */
-
+//   if (this === profileBtn) {
+//     renderizarDatosUsuario();
+//   } else if (this === materiasBtn) {
+//     recorrerListadoYRenderizarTarjetas();
+//   } else if (this === cambiarTema) {
+//     alternarColorTema();
+//   }
 // }
-
-
-// function recorrerListadoYRenderizarTarjetas() {
-//   /* ------------------ PUNTO 3: Escribe tu codigo desde aqui ------------------ */
-
-// }
-
-// function alternarColorTema() {
-//   /* --------------------- PUNTO 4: Escribe tu codigo aqui --------------------- */
-
-// }
-
-// /* --------------------- PUNTO 5: Escribe tu codigo aqui --------------------- */
-
-//   window.addEventListener("keypress", function(e) {
-//     console.log(e);
-//     console.log(e.keyCode);
-//     if (e.code == "KeyF") {
-//       document.querySelector("#sobre-mi").classList.remove("oculto")
-//       console.log(e.key);
-//     }
-//   }) 
-
-
 function obtenerDatosDelUsuario() {
-  /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
-    do {
-        datosPersona.nombre = prompt("Ingresa tu nombre de usuario:")
-    } while (datosPersona.nombre === null || datosPersona.nombre == "" || datosPersona.nombre.length < 3);
-    do {
-        fechaNacimiento = parseInt(prompt("Ingresa tu fecha de nacimiento:"))
-        datosPersona.edad = 2023 - fechaNacimiento 
-    } while (!fechaNacimiento || fechaNacimiento.isNaN);
-    do {
-        datosPersona.ciudad = prompt("Ingresa el nombre tu Ciudad ")
-    } while (datosPersona.ciudad === null || datosPersona.ciudad == "");
-    leInteresaJs = confirm("Te interesa Javascript?") 
-    if (leInteresaJs) {
-        datosPersona.interesPorJs = "Si" 
-    }else {
-        datosPersona.interesPorJs = "No"
-    }
+  datosPersona.nombre = prompt("Ingrese su nombre:");
+  datosPersona.edad = parseInt(prompt("Ingrese su edad:"));
+  datosPersona.ciudad = prompt("Ingrese su ciudad:");
+  datosPersona.interesPorJs = prompt("¿Cuál es su interés por JavaScript?");
 }
 function renderizarDatosUsuario() {
-  /* ------------------- NO TOCAR NI ELIMINAR ESTA FUNCION. ------------------- */
-  obtenerDatosDelUsuario();
-  /* --------------- PUNTO 2: Escribe tu codigo a partir de aqui --------------- */
-    const nombre= document.querySelector("#nombre");
-    nombre.textContent = datosPersona.nombre
-    const edad = document.querySelector("#edad");
-    edad.textContent = datosPersona.edad
-    const ciudad = document.querySelector("#ciudad");
-    ciudad.textContent = datosPersona.ciudad
-    const interesPorJs = document.querySelector("#javascript");
-    interesPorJs.textContent = datosPersona.interesPorJs
+  obtenerDatosDelUsuario()
+  const nombreElement = document.querySelector("#nombre");
+  const edadElement = document.querySelector("#edad");
+  const ciudadElement = document.querySelector("#ciudad");
+  nombreElement.textContent = `Nombre: ${datosPersona.nombre}`;
+  edadElement.textContent = `Edad: ${datosPersona.edad}`;
+  ciudadElement.textContent = `Ciudad: ${datosPersona.ciudad}`;
 }
 function recorrerListadoYRenderizarTarjetas() {
-  /* ------------------ PUNTO 3: Escribe tu codigo desde aqui ------------------ */
-    const mostrarMaterias = document.querySelector("#fila");
-    mostrarMaterias.innerHTML = ""
-    console.log(mostrarMaterias)
-    listado.forEach(lenguaje => {
-        mostrarMaterias.innerHTML += `
-        <div class="caja">
-            <img src="${lenguaje.imgUrl}" alt="${lenguaje.lenguajes}">
-            <p class="lenguajes">${lenguaje.lenguajes}</p>
-            <p class="bimestre">${lenguaje.bimestre}</p>
-        </div>
-`
-    })
+  const tarjetasContainer = document.querySelector("#fila");
+  listado.forEach((materia) => {
+    const tarjeta = document.createElement("div");
+    tarjeta.classList.add("tarjeta");
+    const img = document.createElement("img");
+    img.src = materia.imgUrl;
+    const titulo = document.createElement("h2");
+    titulo.textContent = materia.lenguajes;
+    const bimestre = document.createElement("p");
+    bimestre.textContent = `Bimestre: ${materia.bimestre}`;
+    tarjeta.appendChild(img);
+    tarjeta.appendChild(titulo);
+    tarjeta.appendChild(bimestre);
+    tarjetasContainer.appendChild(tarjeta);
+  });
 }
 function alternarColorTema() {
-  /* --------------------- PUNTO 4: Escribe tu codigo aqui --------------------- */
- 
-  let oscuro = document.querySelector("#sitio")
-    oscuro.classList.toggle("dark");
+  document.body.classList.toggle("dark");
 }
-/* --------------------- PUNTO 5: Escribe tu codigo aqui --------------------- */
-window.addEventListener("keydown", (e) => { 
-    let sobreMiBtn = document.getElementById("sobre-mi");
-    if (e.key.toLowerCase() === "f") {
-        sobreMiBtn.classList.remove("oculto");
-    }
-});

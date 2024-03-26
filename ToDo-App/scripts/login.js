@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
 
     // el evento blur desencadenar el evento una vez que abandono el input, por eso si está vacio, le indico que lo obligue a cargarlo
     email.addEventListener("blur", e => isEmpty(`⚠️ Se requiere que ingrese su ${email.name}`, e))
-    password.addEventListener("blur", e => isEmpty(`⚠️ Se requiere que ingrese su ${email.name}`, e))
+    password.addEventListener("blur", e => isEmpty(`⚠️ Se requiere que ingrese su ${password.name}`, e))
 
     
     /* -------------------------------------------------------------------------- */
@@ -29,8 +29,8 @@ window.addEventListener('load', function () {
 
         //Creamos el cuerpo de la request (petición al servidor)
         const payload = {
-            email: email.value,
-            password: password.value
+            email: normalizarEmail(email.value),
+            password: password.value.trim()
         }
 ;
         // vemos el objeto que recibimos del formulario
