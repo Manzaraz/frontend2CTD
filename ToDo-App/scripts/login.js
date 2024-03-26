@@ -6,11 +6,7 @@ window.addEventListener('load', function () {
     const url = "https://todo-api.ctd.academy/v1"
     // console.log(form);
 
-    
-    const errors = {
-        email: false,        
-        password: false
-    }
+
     // Aqui en este punto yo me encargo de mandar un a llamar la las funcion normalizar Texto y las validaciones
     // Cuando modifico el contenido del input se desencadena el evento el cual lo capturará la función que se encarga de validar
     email.addEventListener("input", e => validarEmail(e))
@@ -30,7 +26,7 @@ window.addEventListener('load', function () {
         //Creamos el cuerpo de la request (petición al servidor)
         const payload = {
             email: normalizarEmail(email.value),
-            password: password.value.trim()
+            password: password.value
         }
 ;
         // vemos el objeto que recibimos del formulario
@@ -46,10 +42,13 @@ window.addEventListener('load', function () {
         }
 
         // Lanzamos la consulta del login a la API
-        realizarLogin(settings)
+        if (email.value.length > 0 && password.value.length > 0) { //condiciono al 
+            console.log("Si está todo ok mando a hacer el fetch");
+            realizarLogin(settings)            
+            // Limpiamos el formulario
+            form.reset()
+        }
 
-        // Limpiamos el formulario
-        form.reset()
 
     });
 
